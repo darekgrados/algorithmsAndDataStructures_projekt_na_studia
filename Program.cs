@@ -105,8 +105,36 @@
 
         static void SitoEratostenesa()
         {
-            Console.WriteLine("Wybrano sito Eratostenesa.");
-            // Implementacja sita Eratostenesa
+            Console.WriteLine("Podaj limit, do którego chcesz znaleźć liczby pierwsze:");
+            int limit = Convert.ToInt32(Console.ReadLine());
+
+            bool[] sito = new bool[limit + 1];
+
+            for (int i = 2; i <= limit; i++)
+            {
+                sito[i] = true;
+            }
+
+            for (int p = 2; p * p <= limit; p++)
+            {
+                if (sito[p])
+                {
+                    for (int i = p * p; i <= limit; i += p)
+                    {
+                        sito[i] = false;
+                    }
+                }
+            }
+
+            Console.WriteLine("Liczby pierwsze mniejsze lub równe " + limit + ":");
+            for (int i = 2; i <= limit; i++)
+            {
+                if (sito[i])
+                {
+                    Console.Write(i + " ");
+                }
+            }
+            Console.WriteLine();
         }
 
         static void RozwiazWielomian5Stopnia()
