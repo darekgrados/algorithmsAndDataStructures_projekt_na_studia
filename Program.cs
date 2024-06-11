@@ -54,7 +54,7 @@
 
             Console.WriteLine("Rozwiązywanie wielomianu...");
 
-            // Normalizacja współczynników
+            // Normalizacja współczynników 
             double A = b / a;
             double B = c / a;
             double C = d / a;
