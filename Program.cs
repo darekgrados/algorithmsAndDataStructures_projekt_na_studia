@@ -1,4 +1,6 @@
-﻿namespace algorithmsAndDataStructures
+﻿using MathNet.Numerics;
+
+namespace algorithmsAndDataStructures
 {
     public class Program
     {
@@ -139,8 +141,39 @@
 
         static void RozwiazWielomian5Stopnia()
         {
-            Console.WriteLine("Wybrano rozwiązanie wielomianu 5 stopnia.");
-            // Implementacja rozwiązywania wielomianu 5 stopnia
+            Console.WriteLine("Podaj współczynniki wielomianu 5 stopnia (ax^5 + bx^4 + cx^3 + dx^2 + ex + f = 0):");
+
+            Console.Write("Podaj a: ");
+            double a = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Podaj b: ");
+            double b = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Podaj c: ");
+            double c = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Podaj d: ");
+            double d = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Podaj e: ");
+            double e = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Podaj f: ");
+            double f = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Rozwiązywanie wielomianu...");
+
+            // Tworzenie tablicy współczynników
+            double[] coefficients = { f, e, d, c, b, a };
+
+            // Znajdowanie pierwiastków
+            var roots = FindRoots.Polynomial(coefficients);
+
+            Console.WriteLine("Pierwiastki wielomianu:");
+            foreach (var root in roots)
+            {
+                Console.WriteLine(root);
+            }
         }
 
         static void AlgorytmMonteCarlo()
