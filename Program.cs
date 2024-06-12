@@ -178,8 +178,25 @@ namespace algorithmsAndDataStructures
 
         static void AlgorytmMonteCarlo()
         {
-            Console.WriteLine("Wybrano algorytm Monte Carlo.");
-            // Implementacja algorytmu Monte Carlo
+            Console.WriteLine("Podaj liczbę iteracji do oszacowania wartości pi:");
+            int iterations = Convert.ToInt32(Console.ReadLine());
+
+            Random rand = new Random();
+            int insideCircle = 0;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                double x = rand.NextDouble() * 2 - 1;
+                double y = rand.NextDouble() * 2 - 1;
+
+                if (x * x + y * y <= 1)
+                {
+                    insideCircle++;
+                }
+            }
+
+            double piEstimate = 4.0 * insideCircle / iterations;
+            Console.WriteLine("Oszacowana wartość pi: " + piEstimate);
         }
 
         static void ProblemKomiwojazera()
