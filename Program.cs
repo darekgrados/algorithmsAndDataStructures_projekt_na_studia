@@ -201,8 +201,109 @@ namespace algorithmsAndDataStructures
 
         static void ProblemKomiwojazera()
         {
-            Console.WriteLine("Wybrano problem komiwojażera dla 100 miast.");
-            // Implementacja problemu komiwojażera dla 100 miast
+            int numberOfCities = 100;
+            double[,] distances = GenerateRandomDistances(numberOfCities);
+            int[] bestRoute = SimulatedAnnealingTSP(distances, numberOfCities);
+
+            Console.WriteLine("Najlepsza znaleziona trasa:");
+            foreach (int city in bestRoute)
+            {
+                Console.Write(city + " ");
+            }
+            Console.WriteLine();
+        }
+
+        static double[,] GenerateRandomDistances(int numberOfCities)
+        {
+            Random rand = new Random();
+            double[,] distances = new double[numberOfCities, numberOfCities];
+
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                for (int j = i + 1; j < numberOfCities; j++)
+                {
+                    double distance = rand.NextDouble() * 100;
+                    distances[i, j] = distance;
+                    distances[j, i] = distance;
+                }
+            }
+
+            return distances;
+        }
+
+        static int[] SimulatedAnnealingTSP(double[,] distances, int numberOfCities)
+        {
+            Random rand = new Random();
+            int[] currentRoute = InitializeRoute(numberOfCities);
+            double currentDistance = CalculateTotalDistance(currentRoute, distances);
+            int[] bestRoute = (int[])currentRoute.Clone();
+            double bestDistance = currentDistance;
+
+            double temperature = 10000.0;
+            double coolingRate = 0.003;
+
+            while (temperature > 1)
+            {
+                int[] newRoute = (int[])currentRoute.Clone();
+                int city1 = rand.Next(1, numberOfCities);
+                int city2 = rand.Next(1, numberOfCities);
+                SwapCities(newRoute, city1, city2);
+
+                double newDistance = CalculateTotalDistance(newRoute, distances);
+
+                if (AcceptanceProbability(currentDistance, newDistance, temperature) > rand.NextDouble())
+                {
+                    currentRoute = newRoute;
+                    currentDistance = newDistance;
+                }
+
+                if (newDistance < bestDistance)
+                {
+                    bestRoute = newRoute;
+                    bestDistance = newDistance;
+                }
+
+                temperature *= 1 - coolingRate;
+            }
+
+            return bestRoute;
+        }
+
+        static int[] InitializeRoute(int numberOfCities)
+        {
+            int[] route = new int[numberOfCities];
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                route[i] = i;
+            }
+            return route;
+        }
+
+        static void SwapCities(int[] route, int city1, int city2)
+        {
+            int temp = route[city1];
+            route[city1] = route[city2];
+            route[city2] = temp;
+        }
+
+        static double CalculateTotalDistance(int[] route, double[,] distances)
+        {
+            double totalDistance = 0;
+            for (int i = 0; i < route.Length - 1; i++)
+            {
+                totalDistance += distances[route[i], route[i + 1]];
+            }
+            totalDistance += distances[route[route.Length - 1], route[0]]; // Return to start
+            return totalDistance;
+        }
+
+        static double AcceptanceProbability(double currentDistance, double newDistance, double temperature)
+        {
+            if (newDistance < currentDistance)
+            {
+                return 1.0;
+            }
+            return Math.Exp((currentDistance - newDistance) / temperature);
         }
     }
 }
