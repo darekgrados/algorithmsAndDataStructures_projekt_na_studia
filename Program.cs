@@ -6,35 +6,44 @@ namespace algorithmsAndDataStructures
     {
         static void Main()
         {
-            Console.WriteLine("Wybierz co chcesz zrobić:");
-            Console.WriteLine("1 - wielomian 3 stopnia");
-            Console.WriteLine("2 - sito Eratostenesa");
-            Console.WriteLine("3 - wielomian 5 stopnia");
-            Console.WriteLine("4 - algorytm Monte Carlo");
-            Console.WriteLine("5 - problem komiwojażera dla 100 miast");
+            bool running = true;
 
-            string wybor = Console.ReadLine();
-
-            switch (wybor)
+            while (running)
             {
-                case "1":
-                    RozwiazWielomian3Stopnia();
-                    break;
-                case "2":
-                    SitoEratostenesa();
-                    break;
-                case "3":
-                    RozwiazWielomian5Stopnia();
-                    break;
-                case "4":
-                    AlgorytmMonteCarlo();
-                    break;
-                case "5":
-                    ProblemKomiwojazera();
-                    break;
-                default:
-                    Console.WriteLine("Niepoprawny wybór, spróbuj ponownie.");
-                    break;
+                Console.WriteLine("Wybierz co chcesz zrobić:");
+                Console.WriteLine("1 - wielomian 3 stopnia");
+                Console.WriteLine("2 - sito Eratostenesa");
+                Console.WriteLine("3 - wielomian 5 stopnia");
+                Console.WriteLine("4 - algorytm Monte Carlo");
+                Console.WriteLine("5 - problem komiwojażera dla 100 miast");
+                Console.WriteLine("6 - koniec programu");
+
+                string wybor = Console.ReadLine();
+
+                switch (wybor)
+                {
+                    case "1":
+                        RozwiazWielomian3Stopnia();
+                        break;
+                    case "2":
+                        SitoEratostenesa();
+                        break;
+                    case "3":
+                        RozwiazWielomian5Stopnia();
+                        break;
+                    case "4":
+                        AlgorytmMonteCarlo();
+                        break;
+                    case "5":
+                        ProblemKomiwojazera();
+                        break;
+                    case "6":
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Niepoprawny wybór, spróbuj ponownie.");
+                        break;
+                }
             }
         }
 
